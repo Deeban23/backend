@@ -5,7 +5,7 @@ const cors = require("cors");
 const jwt = require("jsonwebtoken");
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = 3000;
 
 // Parse incoming requests with JSON payloads
 app.use(bodyParser.json());
