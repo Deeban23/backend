@@ -150,6 +150,6 @@ app.post("/users/login", (req, res) => {
 
 // Start the server
 app.use(express.static("angular-routing"));
-app.listen(port, () => {
+app.listen(process.env.port || port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
