@@ -118,37 +118,7 @@ app.delete("/users/:id", (req, res) => {
 //   });
 // });
 //post method for login
-// app.post("/users/login", (req, res) => {
-//   const { userName, password } = req.body;
-//   const selectQuery = `SELECT userName, email FROM users WHERE userName = ? AND password = ?`;
-
-//   db.get(selectQuery, [userName, password], (err, user) => {
-//     if (err) {
-//       console.error("Error executing query:", err.message);
-//       res.status(500).json({ error: "Error executing query." });
-//     } else {
-//       if (user) {
-//         // User found, credentials are correct
-//         const token = jwt.sign(
-//           { userName: user.userName, email: user.email },
-//           "itissoprivatekeyandshouldnotsharewithanyone",
-//           { expiresIn: "1h" }
-//         );
-//         // User found, credentials are correct
-//         console.log("User logged in successfully.");
-//         console.log("User details:", userName); // Log the user details to verify
-//         res.status(200).json({ userName, token });
-//         // res.status(200).json(user); // Return user details (userName and email)
-//       } else {
-//         // User not found or credentials are incorrect
-//         console.log("Invalid credentials. Login failed.");
-//         res.status(401).json({ error: "Invalid credentials. Login failed." });
-//       }
-//     }
-//   });
-// });
-
-app.post("angular-application.onrender.com/users/login", (req, res) => {
+app.post("/users/login", (req, res) => {
   const { userName, password } = req.body;
   const selectQuery = `SELECT userName, email FROM users WHERE userName = ? AND password = ?`;
 
