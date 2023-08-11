@@ -6,8 +6,8 @@ const jwt = require("jsonwebtoken");
 const mailer = require("./mailer");
 
 const app = express();
-const port = 3000;
-// const port = process.env.PORT || 3000;
+// const port = 3000;
+const port = process.env.PORT || 3000;
 
 // Parse incoming requests with JSON payloads
 app.use(bodyParser.json());
