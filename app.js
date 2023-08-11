@@ -3,9 +3,11 @@ const bodyParser = require("body-parser");
 const sqlite3 = require("sqlite3").verbose();
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
+const mailer = require("./mailer");
 
 const app = express();
-const port = 3000;
+// const port = 3000;
+const port = process.env.PORT || 3000;
 
 // Parse incoming requests with JSON payloads
 app.use(bodyParser.json());
@@ -44,8 +46,17 @@ app.post("/users", (req, res) => {
       console.error("Error creating user:", err.message);
       res.status(500).json({ error: "Error creating user." });
     } else {
+      mailer.sendRegistrationEmail(email);
       console.log("User created successfully.");
-      res.status(201).json({ message: "User created successfully." });
+      res.status(201).json({
+        message: "User created successfully.",
+        message: "Mail has been send to the user.",
+      });
+
+      // Send registration success email to the user
+      // mailer.sendRegistrationEmail(email);
+
+      // res.status(201).json({ message: "Mail has been send to the user." });
     }
   });
 });
@@ -148,8 +159,31 @@ app.post("/users/login", (req, res) => {
   });
 });
 
+// app.get("/api/check-username/:userName", (req, res) => {
+//   const userName = req.params.userName;
+
+//   // Check if the userName exists in the database
+//   db.get(
+//     "SELECT COUNT(*) AS count FROM users WHERE userName = ?",
+//     [userName],
+//     (err, row) => {
+//       if (err) {
+//         return res
+//           .status(500)
+//           .json({
+//             error: "An error occurred while checking username availability.",
+//           });
+//       }
+
+//       const isAvailable = row.count === 0;
+//       res.json({ isAvailable });
+//     }
+//   );
+// });
+
 // Start the server
 app.use(express.static("angular-routing"));
+app.use(express.static("assets"));
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
